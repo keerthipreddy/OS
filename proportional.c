@@ -1,24 +1,51 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-int main()
+int main() 
 {
-    int i,n,T;
-    printf("\nEnter total value of share T: ");
-    scanf("%d",&T);
-    printf("\nEnter no. of processes: ");
-    scanf("%d",&n);
-    int N[n];
-    double NT=0;
-
-    for(i=0;i<n;i++)
-    {
-        printf("Enter share of P%d: ", i+1);
-        scanf("%d",&N[i]);
-        NT += (double)N[i]/T;
+    srand(time(0));
+    int numbers[5];
+    int i;
+    for (i = 0; i < 5; i++) {
+        numbers[i] = rand() % 10 + 1;
     }
 
-    if(NT<=1)
-        printf("\nProportionalShareSchedule is possible.\n");
-    else
-        printf("\nProportionalShareSchedule is not possible.\n");
+    printf("Initial Numbers: ");
+    for (i = 0; i < 5; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+
+    while (1) {
+       
+        int all_zero = 1;
+        for (i = 0; i < 5; i++) {
+            if (numbers[i] > 0) {
+                all_zero = 0;
+                break;
+            }
+        }
+
+        if (all_zero) {
+            break;
+        }
+
+        int selected_index;
+        do {
+            selected_index = rand() % 5;
+        } while (numbers[selected_index] == 0);
+
+        numbers[selected_index]--;
+        printf("Decrementing number at index %d: ", selected_index);
+        for (i = 0; i < 5; i++) {
+            printf("%d ", numbers[i]);
+        }
+        printf("\n");
+    }
+
+    printf("All numbers reached 0.\n");
+
+    return 0;
 }
+
